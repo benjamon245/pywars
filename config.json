@@ -1,0 +1,101 @@
+{	
+    "window_width": 1000,
+    "window_height": 1000,
+    "fps": 33, 
+	"colors": {
+        	"bkg": [0, 0, 25],
+        	"laser": [255, 0, 0],
+        	"trapez": [35, 35, 35]
+        	},
+    "background": ["patroclus", "orus", "eurybates", "leucus", "menoetius", "polymele", "donaldjohanson"],
+	"images": {
+			"player": {
+					"file":  "images/jet.png",
+					"tcolor":[255, 255, 255],
+					"deflation": [20, 15]
+					},
+			"enemy": {
+					"file":  "images/missile.png",
+					"tcolor":[255, 255, 255],
+					"deflation": [4, 3]
+					},
+            "star": {
+                    "file": "images/star3.jpg",
+                    "tcolor": [0, 0, 0]
+                    },
+            "patroclus": {
+                    "file": "images/patroclus.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [200, 166]
+                    },
+            "orus": {
+                    "file": "images/orus.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [80, 76]
+                    },
+            "eurybates": {
+                    "file": "images/eurybates.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [100, 84]
+                    },
+            "leucus": {
+                    "file": "images/leucus.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [60, 50]
+                    },
+            "menoetius": {
+                    "file": "images/menoetius.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [60, 50]
+                    },
+            "polymele": {
+                    "file": "images/polymele.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [60, 54]
+                    },
+            "donaldjohanson": {
+                    "file": "images/donaldjohanson.png",
+                    "tcolor": [0, 0, 25],
+                    "size": [15, 20]
+                    },
+                    
+            "starry_sky": {
+                    "file": "images/starry_sky.jpeg"
+                    }, 
+			"cloud": {
+					"file":  "images/cloud.png",
+					"tcolor":[0, 0, 0]
+					},
+            "deathstar":{
+                    "file": "images/png-clipart-star-wars-star-wars2.png",
+                    "tcolor": [255, 255, 255],
+                    "radius": 100
+                    }
+					
+			},
+    "speeds": {
+            "player": 5,
+            "enemy": [5,15],
+            "searching_enemy": [5,10],
+            "background": [1,4],
+            "laser": 6
+            },
+    "sounds": {
+            "music": "sounds/Apoxode_-_Electric_1.mp3",
+            "up": "sounds/Rising_putter.ogg",
+            "down": "sounds/Falling_putter.ogg",
+            "laser": "sounds/pistolet-laser-19sf.mp3",
+            "collision": "sounds/Collision.ogg",
+            "hit": "sounds/medium-explosion-40472.mp3",
+            "destruction": "sounds/landslide-128314.mp3",
+            "small_destruction": "sounds/debris-metal-chute-01.mp3"
+            },
+    "event_timers":{
+            "enemy": 500,
+            "searching_enemy": 2000,
+            "bkg_object": 1000
+            },
+    "top_tunnel": [[600,10], [1200,400], [2000, 450], [2200,300], [4000, 300], [4500, 900]],
+    "initial_phase_time": 5,
+    "max_hits": 10
+}
