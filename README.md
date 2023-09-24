@@ -3,6 +3,8 @@
 Pywars is my first video game and my first significant software development.
 It is a "Shoot them up" game inspired from the tutorial https://realpython.com/pygame-a-primer/#images-and-rects .
 
+![pywars screenshot](./images/screenshot.png)
+
 
 # Install & run
 Pywars was developed with Python3.8. The only requirement is the module **pygame**:
