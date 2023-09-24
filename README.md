@@ -22,7 +22,7 @@ Simply use the arrow keys to move and the space key to fire lasers
 # Project structure
 * sprites.py: contains classes defining the different types of objects (sprites) used in the game: player, enemy, background objects, decors, final boss
 * play.py: contains the game logic itself
-* menu.py: creates a first menu page before entering the game
+* main.py: creates a first menu page before entering the game
 * config.json: the settings of the game
 * images: picture files
 * sounds: sound files
@@ -30,6 +30,7 @@ Simply use the arrow keys to move and the space key to fire lasers
 # Configuration
 A lot of parameters are defined in the configuration file. Here are some of them:
 * size of screen
+* whether we activate sounds
 * frames per seconds
 * colors
 * speeds of the objects

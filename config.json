@@ -2,6 +2,7 @@
     "window_width": 1000,
     "window_height": 1000,
     "fps": 33, 
+    "sound": true,
 	"colors": {
         	"bkg": [0, 0, 25],
         	"laser": [255, 0, 0],
@@ -91,11 +92,11 @@
             "small_destruction": "sounds/debris-metal-chute-01.mp3"
             },
     "event_timers":{
-            "enemy": 500,
-            "searching_enemy": 2000,
-            "bkg_object": 1000
+            "enemy": 700,
+            "searching_enemy": 3000,
+            "bkg_object": 1200
             },
-    "top_tunnel": [[600,10], [1200,400], [2000, 450], [2200,300], [4000, 300], [4500, 900]],
+    "top_tunnel": [[600,10], [1200,400], [2000, 450], [2200,300], [4000, 300], [4500, 500]],
     "initial_phase_time": 5,
-    "max_hits": 10
+    "max_hits": 20
 }

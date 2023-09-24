@@ -174,7 +174,7 @@ class Trapez (pygame.sprite.Sprite):
         self.y = y
         self.color = color
         # the surface must be big enough to contain the trapez shape
-        self.surf = pygame.Surface((width, max(righth + deltay, lefth, righth)))
+        self.surf = pygame.Surface((width, max(righth + deltay, lefth, righth, 1)))
         self.surf.fill((255, 255, 255))
         # Let's draw the trapez in the surface
         if deltay >= 0: 

@@ -56,11 +56,11 @@ class Button(pygame.sprite.Sprite):
 # Initialize pygame
 pygame.init()
 # Setup for sounds. Defaults are good.
-pygame.mixer.init()
-
-# Load and play background music
-pygame.mixer.music.load(config['sounds']['music'])
-pygame.mixer.music.play(loops=-1)
+if config['sound']: 
+    pygame.mixer.init()
+    # Load and play background music
+    pygame.mixer.music.load(config['sounds']['music'])
+    pygame.mixer.music.play(loops=-1)
 
 # Setup the clock for a decent framerate
 clock = pygame.time.Clock()
@@ -142,8 +142,9 @@ try:
         clock.tick(config['fps'])
         
     # clean exit
-    pygame.mixer.music.stop()
-    pygame.mixer.quit()
+    if config['sound']: 
+        pygame.mixer.music.stop()
+        pygame.mixer.quit()
     pygame.quit()
     
 except Exception as e:

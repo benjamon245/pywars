@@ -94,12 +94,20 @@ def run(config, screen):
     invicible = False
        
     # Load all sound files
-    move_up_sound = pygame.mixer.Sound(config['sounds']['up'])
-    move_down_sound = pygame.mixer.Sound(config['sounds']['down'])
-    laser_sound = pygame.mixer.Sound(config['sounds']['laser'])
-    hit_sound = pygame.mixer.Sound(config['sounds']['hit'])
-    destruction_sound = pygame.mixer.Sound(config['sounds']['destruction'])
-    small_destruction_sound = pygame.mixer.Sound(config['sounds']['small_destruction'])
+    if config['sound']: 
+        move_up_sound = pygame.mixer.Sound(config['sounds']['up'])
+        move_down_sound = pygame.mixer.Sound(config['sounds']['down'])
+        laser_sound = pygame.mixer.Sound(config['sounds']['laser'])
+        hit_sound = pygame.mixer.Sound(config['sounds']['hit'])
+        destruction_sound = pygame.mixer.Sound(config['sounds']['destruction'])
+        small_destruction_sound = pygame.mixer.Sound(config['sounds']['small_destruction'])
+    else: 
+        move_up_sound = None
+        move_down_sound = None
+        laser_sound = None
+        hit_sound = None
+        destruction_sound = None
+        small_destruction_sound = None
     
     # Create a custom event for adding a new enemy
     ADDENEMY = pygame.USEREVENT + 1
@@ -122,7 +130,7 @@ def run(config, screen):
     
     # creating the trapez tunnel phase
     top_tunnel = config["top_tunnel"]
-    top_tunnel = [(elt[0], elt[1]) for elt in top_tunnel]
+    top_tunnel = [(elt[0], min(elt[1], SCREEN_HEIGHT-60)) for elt in top_tunnel]
     
     if "bottom_tunnel" in config:
         bottom_tunnel = config["bottom_tunnel"]
@@ -130,7 +138,7 @@ def run(config, screen):
     else:
         # if the bottom tunnel is not defined in the config 
         # we just build a set of trapez parallel to the top ones (but shifted)
-        bottom_tunnel = [(p[0]+100, p[1]+300) for p in top_tunnel]
+        bottom_tunnel = [(p[0]+100, min(p[1]+300,SCREEN_HEIGHT-10)) for p in top_tunnel]
         
     # shifting the tunnel so as they start outside the screen
     top_tunnel = [(x + SCREEN_WIDTH, y) for (x, y) in top_tunnel]
@@ -192,7 +200,9 @@ def run(config, screen):
             phase = BOSS_PHASE
         # creating the deathstar if not done
         if (deathstar == None) and (phase == BOSS_PHASE):
-            deathstar = DeathStar(config['images']["deathstar"], hit_sound=hit_sound, destruction_sound=destruction_sound, max_hits=config["max_hits"])
+            deathstar = DeathStar(config['images']["deathstar"], 
+                                  max_x=SCREEN_WIDTH, max_y=SCREEN_HEIGHT,
+                                  hit_sound=hit_sound, destruction_sound=destruction_sound, max_hits=config["max_hits"])
             all_sprites.add(deathstar)
             deathstars.add(deathstar)
             
@@ -256,7 +266,7 @@ def run(config, screen):
             # creating background objects on a regular basis
             elif event.type == ADDBKG:
                 item = config["background"][random.randint(0, len(config["background"])-1)]
-                # Create the new cloud and add it to sprite groups
+                # Create the new object and add it to sprite groups
                 new_bkg = BackgroundItem(config['images'][item],
                                   SCREEN_WIDTH, SCREEN_HEIGHT,
                                   speeds=(config['speeds']['background'][0], config['speeds']['background'][1]))
@@ -316,7 +326,7 @@ def run(config, screen):
         # destroying enemies
         if pygame.sprite.groupcollide(enemies, lasers, True, True) \
         or pygame.sprite.groupcollide(enemies, enemies, True, True, collided=collide_if_not_self):
-            small_destruction_sound.play()            
+            if config['sound']: small_destruction_sound.play()            
         pygame.sprite.groupcollide(enemies, tunnel, True, False, collided=collide_rect_corners)
         pygame.sprite.groupcollide(lasers, tunnel, True, False, collided=collide_rect_corners)
         
@@ -328,10 +338,11 @@ def run(config, screen):
                 
                 # GAME OVER
                 player.kill()
-                move_up_sound.stop()
-                move_down_sound.stop()
-                destruction_sound.play()
-                destruction_sound.fadeout(3000)
+                if config['sound']: 
+                    move_up_sound.stop()
+                    move_down_sound.stop()
+                    destruction_sound.play()
+                    destruction_sound.fadeout(3000)
                 time.sleep(3)
                 won = False
                 running = False
@@ -339,10 +350,11 @@ def run(config, screen):
         # hitting/destroying the deathstar
         if pygame.sprite.groupcollide(lasers, deathstars, True, False, collided=collide_rect_corners):
             if deathstar.hit():
-                move_up_sound.stop()
-                move_down_sound.stop()
-                destruction_sound.play()
-                destruction_sound.fadeout(3000)
+                if config['sound']:
+                    move_up_sound.stop()
+                    move_down_sound.stop()
+                    destruction_sound.play()
+                    destruction_sound.fadeout(3000)
                 time.sleep(3)
                 won = True
                 running = False
@@ -365,11 +377,11 @@ if __name__ == "__main__":
     # Initialize pygame
     pygame.init()
     # Setup for sounds. Defaults are good.
-    pygame.mixer.init()
+    if config['sound']: pygame.mixer.init()
     
     # Load and play background music
-    pygame.mixer.music.load(config['sounds']['music'])
-    pygame.mixer.music.play(loops=-1)
+    if config['sound']: pygame.mixer.music.load(config['sounds']['music'])
+    if config['sound']: pygame.mixer.music.play(loops=-1)
     
     # Create the screen object
     screen = pygame.display.set_mode((config['window_width'], config['window_height']))
@@ -383,5 +395,5 @@ if __name__ == "__main__":
     
     # clean exit
     pygame.mixer.music.stop()
-    pygame.mixer.quit()
+    if config['sound']: pygame.mixer.quit()
     pygame.quit()
