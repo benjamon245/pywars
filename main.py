@@ -8,6 +8,17 @@ import play
 import pygame
 import time, json
 
+import os, sys
+
+
+##### IGNORE: trick to make the windows executable work
+if hasattr(sys, "_MEIPASS"):
+    # when built with pyinstaller the resources (config, images, sounds) are unpacked in the sys._MEIPASS directory
+    os.chdir(sys._MEIPASS)
+# command to build the Windows executable
+# pyinstaller --onefile --add-data config.json:. --add-data images\*:images --add-data sounds\*:sounds  main.py
+
+
 # Import pygame.locals for easier access to key coordinates
 from pygame.locals import (
     RLEACCEL,

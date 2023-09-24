@@ -16,6 +16,10 @@ Then to run it just launch the file **menu.py**:
 python menu.py
 ```
 
+# Exe for Windows
+Here is [a link to an exe that runs on Windows](https://www.dropbox.com/scl/fi/8t02sctjn15ddf4h9hm1p/pywars.exe?rlkey=kp1ewkoykm9f760gjqjcgzvzv&dl=0)
+(close the pop-up, click on "Download" and double click on the downloaded file)
+
 # Gameplay
 Simply use the arrow keys to move and the space key to fire lasers
 
