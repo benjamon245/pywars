@@ -20,8 +20,11 @@ from pygame.locals import (
     K_SPACE,
     KEYDOWN,
     QUIT,
-    K_i
+    K_i,
+    K_p
 )
+
+
 
 # Those are the different phases of the game
 INITIAL_PHASE = 0 # only missiles
@@ -92,7 +95,9 @@ def run(config, screen):
        
     # whether the user is invicible - meant for testing
     invicible = False
-       
+    
+    pause = False
+
     # Load all sound files
     if config['sound']: 
         move_up_sound = pygame.mixer.Sound(config['sounds']['up'])
@@ -227,13 +232,16 @@ def run(config, screen):
                 # cheat mode to become invicible (for testing)
                 if event.key == K_i:
                     invicible = not invicible
-         
+                
+                if event.key == K_p:
+                    pause = not pause
+                    
             # Did the user click the window close button? If so, stop the loop.
             elif event.type == QUIT:
                 running = False
             
             # add ennemies on a regular basis
-            elif event.type == ADDENEMY:
+            elif (event.type == ADDENEMY) and (pause == False):
                 # Create the new enemy and add it to sprite groups
                 if (phase == INITIAL_PHASE) or (phase == TUNNEL_PHASE):
                     # enemies are created outside the screen
@@ -250,7 +258,7 @@ def run(config, screen):
                 all_sprites.add(new_enemy)
                 
             # add searching ennemies on a regular basis
-            elif event.type == ADD_SEARCHING_ENEMY:
+            elif (event.type == ADD_SEARCHING_ENEMY) and (pause == False):
                 # Create the new enemy and add it to sprite groups
                 if (phase == INITIAL_PHASE) or (phase == TUNNEL_PHASE):
                     x = random.randint(SCREEN_WIDTH + 20, SCREEN_WIDTH + 100)
@@ -291,13 +299,14 @@ def run(config, screen):
         ##########################
         #### UPDATE POSITIONS ####
         ##########################
-        player.update()
-        bkgs.update()
-        lasers.update() 
-        enemies.update(player.rect.centerx, player.rect.centery)
-        tunnel.update()
-        if deathstar: 
-            deathstar.update()
+        if pause == False:
+            player.update()
+            bkgs.update()
+            lasers.update() 
+            enemies.update(player.rect.centerx, player.rect.centery)
+            tunnel.update()
+            if deathstar: 
+                deathstar.update()
         
         ###################
         #### RENDERING ####
@@ -308,12 +317,13 @@ def run(config, screen):
         for entity in bkgs:
             background.blit(entity.surf, entity.rect)
             
-        background.set_alpha(100)
+        background.set_alpha(150)
         screen.blit(background, background.get_rect())
                 
         # Draw all sprites
         for entity in all_sprites:
             screen.blit(entity.surf, entity.rect_blit)
+        screen.blit(player.surf, player.rect_blit)
             
         ##############
         #### FLIP ####
@@ -343,7 +353,8 @@ def run(config, screen):
                     move_down_sound.stop()
                     destruction_sound.play()
                     destruction_sound.fadeout(3000)
-                time.sleep(3)
+                # sleep before GAME OVER
+                time.sleep(2)
                 won = False
                 running = False
         

@@ -15,6 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.max_x = max_x
         self.max_y = max_y
         self.surf = pygame.image.load(image["file"]).convert()
+        # remove backgroud color
         self.surf.set_colorkey(image["tcolor"], RLEACCEL)       
         self.rect = self.surf.get_rect(centery = self.max_y/2)
         self.speed = speed
@@ -23,7 +24,10 @@ class Player(pygame.sprite.Sprite):
         self.rect_blit = self.rect
         self.deflation = image["deflation"]
         self.rect = self.rect_blit.inflate(-self.deflation[0], -self.deflation[1])
-
+        #display collision rect
+        disp_rect = self.surf.get_rect().inflate(-self.deflation[0], -self.deflation[1])
+        #pygame.draw.rect(self.surf, [255,0,0], disp_rect, 2)
+        
         
     def move_up(self):
         self.rect_blit.move_ip(0, -self.speed)
@@ -75,6 +79,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect_blit = self.rect
         self.deflation = image["deflation"]
         self.rect = self.rect_blit.inflate(-self.deflation[0], -self.deflation[1])
+        #display collision rect
+        disp_rect = self.surf.get_rect().inflate(-self.deflation[0], -self.deflation[1])
+        #pygame.draw.rect(self.surf, [255,0,0], disp_rect, 2)
+        
 
     # Move the sprite based on speed
     # Remove the sprite when it passes the left edge of the screen   
@@ -123,12 +131,12 @@ class BackgroundItem(pygame.sprite.Sprite):
         super(BackgroundItem, self).__init__()
         self.surf = pygame.image.load(image["file"]).convert()
         # the size of the object is randomly modified
-        scale = random.uniform(0.5, 1.0) 
+        scale = random.uniform(0.5, 1.5) 
         self.surf = pygame.transform.scale(self.surf, (scale * image["size"][0], scale * image["size"][1]))
         self.surf.set_colorkey(image["tcolor"], RLEACCEL)
         self.rect = self.surf.get_rect(
             center=(
-                random.randint(max_x + 20, max_x + 100),
+                max_x + 100,
                 random.randint(0, max_y),
             )
         )
@@ -161,7 +169,7 @@ class Laser(pygame.sprite.Sprite):
             
 # those trapez shapes are used to build the tunnel in PHASE 2            
 class Trapez (pygame.sprite.Sprite):
-    def __init__(self, width, lefth, righth, deltay=0, x=0, y=0, color=(0, 0, 0), speed=3):
+    def __init__(self, width, lefth, righth, deltay=0, x=0, y=0, color=(0, 0, 0), speed=5):
         # left top corner defined by x and y
         # lefth and righth are the left and right heights
         # deltay defines where the right edge starts. It can be negative
