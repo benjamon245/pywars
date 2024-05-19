@@ -17,7 +17,7 @@ python menu.py
 ```
 
 # Exe for Windows
-Here is [a link to an exe that runs on Windows](https://www.dropbox.com/scl/fi/8t02sctjn15ddf4h9hm1p/pywars.exe?rlkey=kp1ewkoykm9f760gjqjcgzvzv&dl=0)
+Here is [a link to an exe that runs on Windows](https://www.dropbox.com/scl/fi/9j4zhlma5f7yb0pdhpzig/pywars.exe?rlkey=6asxu3n71aqou0ufkqjewm2mm&st=edb1xms7&dl=0)
 (close the pop-up, click on "Download" and double click on the downloaded file)
 
 # Gameplay
