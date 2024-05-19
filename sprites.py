@@ -15,6 +15,8 @@ class Player(pygame.sprite.Sprite):
         self.max_x = max_x
         self.max_y = max_y
         self.surf = pygame.image.load(image["file"]).convert()
+        width, height = self.surf.get_size()
+        self.surf = pygame.transform.scale(self.surf, (image['scale'] * width, image['scale'] * height))
         # remove backgroud color
         self.surf.set_colorkey(image["tcolor"], RLEACCEL)       
         self.rect = self.surf.get_rect(centery = self.max_y/2)
@@ -25,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.deflation = image["deflation"]
         self.rect = self.rect_blit.inflate(-self.deflation[0], -self.deflation[1])
         #display collision rect
-        disp_rect = self.surf.get_rect().inflate(-self.deflation[0], -self.deflation[1])
+        #disp_rect = self.surf.get_rect().inflate(-self.deflation[0], -self.deflation[1])
         #pygame.draw.rect(self.surf, [255,0,0], disp_rect, 2)
         
         
@@ -70,6 +72,8 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, image, x, y, speeds=(5, 15)):
         super(Enemy, self).__init__()
         self.surf = pygame.image.load(image["file"]).convert()
+        width, height = self.surf.get_size()
+        self.surf = pygame.transform.scale(self.surf, (image['scale'] * width, image['scale'] * height))
         self.surf.set_colorkey(image["tcolor"], RLEACCEL)
         self.rect = self.surf.get_rect(center=(x, y))
         # the speed is randomly chosen between 2 values
@@ -79,8 +83,8 @@ class Enemy(pygame.sprite.Sprite):
         self.rect_blit = self.rect
         self.deflation = image["deflation"]
         self.rect = self.rect_blit.inflate(-self.deflation[0], -self.deflation[1])
-        #display collision rect
-        disp_rect = self.surf.get_rect().inflate(-self.deflation[0], -self.deflation[1])
+        ## display collision rect
+        #disp_rect = self.surf.get_rect().inflate(-self.deflation[0], -self.deflation[1])
         #pygame.draw.rect(self.surf, [255,0,0], disp_rect, 2)
         
 
@@ -152,7 +156,7 @@ class BackgroundItem(pygame.sprite.Sprite):
 class Laser(pygame.sprite.Sprite):
     def __init__(self, centery, left, color, max_x, speed):
         super(Laser, self).__init__()
-        self.surf = pygame.Surface((5, 3))
+        self.surf = pygame.Surface((10, 4))
         self.surf.fill(color)
         self.rect = self.surf.get_rect()
         self.rect.centery = centery

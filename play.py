@@ -241,7 +241,7 @@ def run(config, screen):
                 running = False
             
             # add ennemies on a regular basis
-            elif (event.type == ADDENEMY) and (pause == False):
+            elif (event.type == ADDENEMY) and (not pause):
                 # Create the new enemy and add it to sprite groups
                 if (phase == INITIAL_PHASE) or (phase == TUNNEL_PHASE):
                     # enemies are created outside the screen
@@ -258,7 +258,7 @@ def run(config, screen):
                 all_sprites.add(new_enemy)
                 
             # add searching ennemies on a regular basis
-            elif (event.type == ADD_SEARCHING_ENEMY) and (pause == False):
+            elif (event.type == ADD_SEARCHING_ENEMY) and (not pause):
                 # Create the new enemy and add it to sprite groups
                 if (phase == INITIAL_PHASE) or (phase == TUNNEL_PHASE):
                     x = random.randint(SCREEN_WIDTH + 20, SCREEN_WIDTH + 100)
@@ -272,7 +272,7 @@ def run(config, screen):
                 all_sprites.add(new_enemy)
                 
             # creating background objects on a regular basis
-            elif event.type == ADDBKG:
+            elif (event.type == ADDBKG) and (not pause):
                 item = config["background"][random.randint(0, len(config["background"])-1)]
                 # Create the new object and add it to sprite groups
                 new_bkg = BackgroundItem(config['images'][item],
@@ -317,7 +317,7 @@ def run(config, screen):
         for entity in bkgs:
             background.blit(entity.surf, entity.rect)
             
-        background.set_alpha(150)
+        background.set_alpha(200)
         screen.blit(background, background.get_rect())
                 
         # Draw all sprites
