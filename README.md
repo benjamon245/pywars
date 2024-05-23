@@ -11,7 +11,7 @@ Pywars was developed with Python3.8. The only requirement is the module **pygame
 ```
 pip install pygame
 ```
-Then to run it just launch the file **menu.py**:
+Then to run it just launch the file **main.py**:
 ```
 python menu.py
 ```
