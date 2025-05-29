@@ -13,7 +13,7 @@ pip install pygame
 ```
 Then to run it just launch the file **main.py**:
 ```
-python menu.py
+python main.py
 ```
 
 # Exe for Windows
